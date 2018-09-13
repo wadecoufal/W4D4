@@ -1,0 +1,17 @@
+
+<% action_url = type == :new ? bands_url : band_url(band) %>
+<% button_val = type == :new ? 'Create Band!' : 'Edit Band' %>
+<% method = type == :new ? 'post' : 'patch' %>
+
+<form action="<%= action_url %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+  <%= authenticity_token_form %>
+
+  <%= render 'layouts/flash_errors' %>
+
+  <label>Band Name:
+    <input type="text" name="band[name]" value="">
+  </label>
+
+  <input type="submit" name="" value="Create Band!">
+</form>

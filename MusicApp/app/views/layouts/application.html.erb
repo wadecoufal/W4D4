@@ -14,8 +14,12 @@
     <header>
       <h1> MUSIC APP </h1>
       <% if logged_in? %>
-        <!-- <a href="<%#= session_url %>">Logout</a> -->
-        <%= link_to "Logout", action: 'destroy', controller: 'sessions'  %>
+        <form action="<%= session_url %>" method="post">
+          <%= authenticity_token_form %>
+
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Logout!">
+        </form>
       <% else %>
         <a href="<%= new_session_url %>">Sign In</a>
         <br>
@@ -23,30 +27,6 @@
       <% end %>
     </header>
 
-
     <%= yield %>
-
-    <!-- <%# if logged_in? %>
-      <form action="<%#= session_url %>" method="post">
-        <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">
-
-        <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="Logout!">
-      </form>
-    <%# else %>
-      <form action="<%#= new_session_url %>" method="get">
-        <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">
-
-        <input type="submit" value="Sign In!">
-      </form>
-
-      <form action="<%#= new_user_url %>" method="get">
-        <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">
-
-        <input type="submit" value="Sign Up!">
-      </form>
-    <%# end %> -->
-
-
   </body>
 </html>

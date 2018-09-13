@@ -3,13 +3,9 @@
 <% button_val = type == :signup ? "Create Account" : "Login" %>
 
 <form action="<%= action_url %>" method="post">
-  <% unless flash[:errors].nil? %>
-    <% flash[:errors].each do |error| %>
-      <li> <%= error %> </li>
-    <% end %>
-  <% end %>
+  <%= render 'layouts/flash_errors' %>
 
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <%= authenticity_token_form %>
 
   <label>Email:
     <input type="text" name="user[email]" value="">
@@ -20,7 +16,7 @@
     <input type="password" name="user[password]" value="">
   </label>
   <br>
-  
+
   <input type="submit" value="<%= button_val %>">
 
 </form>
