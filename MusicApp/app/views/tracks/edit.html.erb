@@ -1,0 +1,5 @@
+<% album = Album.find_by(id: params[:album_id]) %>
+
+<h1>Edit Track on the <%= album.title %> Album</h1>
+
+<%= render 'form', type: :edit, album: album, track: @track %>

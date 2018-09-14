@@ -1,0 +1,43 @@
+
+<% action_url = type == :new ? albums_url : album_url(album) %>
+<% button_val = type == :new ? "Create Album" : "Edit Album"%>
+<% method = type == :new ? 'post' : 'patch' %>
+
+<form action="<%= action_url %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+  <%= authenticity_token_form %>
+  <%= render 'layouts/flash_errors' %>
+
+  <% album_band = Band.find_by(id: params[:band_id]) %>
+
+  <label>Band:
+    <select name="album[band_id]">
+      <option></option>
+      <% Band.all.each do |band| %>
+        <option
+          value="<%= band.id %>"
+          <%= 'selected' if !album_band.nil? && band.id == album_band.id  %>
+          <%= album.band_id == band.id ? 'selected' : '' %>> <%= band.name %></option>
+      <% end %>
+    </select>
+  </label>
+
+  <label>Studio:
+    <input type="radio" name="album[studio]" value="Studio" <%= 'checked' if album.studio == 'Studio' %>>
+  </label>
+
+  <label>Live:
+    <input type="radio" name="album[studio]" value="Live" <%= 'checked' if album.studio == 'Live' %>>
+  </label>
+
+  <label>Year:
+    <input type="text" name="album[year]" value="<%= album.year %>">
+  </label>
+
+  <label>Title:
+    <input type="text" name="album[title]" value="<%= album.title %>">
+  </label>
+
+
+  <input type="submit" value="<%= button_val %>">
+</form>

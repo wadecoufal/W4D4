@@ -1,0 +1,42 @@
+
+<% action_url = type == :new ? tracks_url : track_url(track)%>
+<% method = type == :new ? 'post' : 'patch' %>
+<% button_val = type == :new ? "Create Track!" : "Edit Track"%>
+
+<form action="<%= action_url %>" method="post">
+  <%= authenticity_token_form %>
+  <%= render 'layouts/flash_errors' %>
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <% track_album = Album.find_by(id: params[:album_id]) %>
+
+  <label>Album:
+    <select name="track[album_id]">
+      <option></option>
+      <% Album.all.each do |album| %>
+        <option
+          value="<%= album.id %>"
+          <%= 'selected' if album.id == track_album.id  %>
+          <%= track.album_id == album.id ? 'selected' : '' %>> <%= album.title %></option>
+      <% end %>
+    </select>
+  </label>
+
+  <label>Bonus Track:
+    <input type="radio" name="track[bonus_track]" value="true" <%= 'checked' if track.bonus_track == true %>>
+  </label>
+
+  <label>Regular Track:
+    <input type="radio" name="album[studio]" value="false" <%= 'checked' if track.bonus_track == false %>>
+  </label>
+
+
+
+  <label>Lyrics:
+    <textarea name="" rows="8" cols="80"></textarea>
+  </label>
+
+
+
+
+</form>

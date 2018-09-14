@@ -1,0 +1,5 @@
+<% album = Album.find_by(id: params[:album_id]) %>
+
+<h1>Create a New Track for <%= album.title %></h1>
+
+<%= render 'form', type: :new, album: album, track: @track %>

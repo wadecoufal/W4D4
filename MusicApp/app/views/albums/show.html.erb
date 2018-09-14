@@ -1,0 +1,26 @@
+<h1> <%= @album.title %></h1>
+
+<% band = Band.find_by(id: @album.band_id) %>
+
+<p>An album by the band: <%= band.name %></p>
+
+<a href="<%= band_url(band) %>">Back to <%= band.name %>'s Page</a>
+
+<form action="<%= album_url %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <%= authenticity_token_form %>
+
+  <input type="submit" name="" value="DELETE ALBUM">
+</form>
+
+<form action="<%= edit_album_url %>" method="get">
+  <%= authenticity_token_form %>
+
+  <input type="submit" name="" value="EDIT ALBUM">
+</form>
+
+<form action="<%= new_album_track_url %>" method="post">
+  <%= authenticity_token_form %>
+
+  <input type="submit" value="ADD TRACK">
+</form>

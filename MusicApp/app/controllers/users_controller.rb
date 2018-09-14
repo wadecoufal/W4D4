@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:show]
 
   def new
     @user = User.new
@@ -7,7 +8,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    render :show
+
+    if @user.session_token != session[:session_token]
+      redirect_to bands_url
+    else
+      render :show
+    end
   end
 
   def create
